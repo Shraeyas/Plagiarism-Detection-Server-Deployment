@@ -5,10 +5,8 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import LancasterStemmer
 
 def pre_process (_sentences) :
-    nltk.download ('punkt')
-    nltk.download ('stopwords')
     lancaster = LancasterStemmer()
-    
+
     en_stops = set (stopwords.words ('english')) # Remove Stopwords
     processed_sentences = []
 
