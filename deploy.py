@@ -14,11 +14,11 @@ def get_similarity ():
     document_1 = request.form['doc_1']
     document_similarity = get_document_similarity (document_0, document_1)
     sentence_similarity = get_sentence_similarity (document_0, document_1)
-    
+
     dict = {}
     dict ["doc_similarity"] = document_similarity
     dict ["sen_similarity"] = sentence_similarity
-    
+
     return jsonify (dict)
 
 if __name__ == '__main__':
