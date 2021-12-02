@@ -10,6 +10,7 @@ def get_sentence_similarity (doc_0, doc_1) :
     sentences_0_processed.append (pre_process (sentences_0))
     vectors_0 = []
     for i, sentence in enumerate (sentences_0_processed[0]) :
+        sentence = re.sub(r"[^a-zA-Z0-9]","", sentence)
         v = get_inference_vector (sentence)#model.infer_vector (sentence)
         for match in re.finditer (sentences_0[i], doc_0) :
             vectors_0.append ([v, match.start (), match.end ()])
@@ -20,6 +21,7 @@ def get_sentence_similarity (doc_0, doc_1) :
     sentences_1_processed.append (pre_process (sentences_1))
     vectors_1 = []
     for i, sentence in enumerate (sentences_1_processed[0]) :
+        sentence = re.sub(r"[^a-zA-Z0-9]","", sentence)
         v = get_inference_vector (sentence)#model.infer_vector (sentence)
         for match in re.finditer (sentences_1[i], doc_1) :
             vectors_1.append ([v, match.start (), match.end ()])
