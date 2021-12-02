@@ -2,6 +2,7 @@ import re
 from scipy import spatial
 from preprocess import pre_process
 from inference import get_inference_vector
+import re
 
 def get_sentence_similarity (doc_0, doc_1) :
     sentences_0 = []

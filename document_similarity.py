@@ -1,6 +1,7 @@
 from scipy import spatial
 from preprocess import pre_process
 from inference import get_inference_vector
+import re
 
 def get_document_similarity (doc_0, doc_1) :
     doc_0 = re.sub(r"[^a-zA-Z0-9]","", doc_0)
