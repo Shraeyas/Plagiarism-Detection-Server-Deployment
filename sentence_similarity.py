@@ -12,14 +12,10 @@ def get_sentence_similarity (doc_0, doc_1) :
     sentences_0_processed.append (pre_process (sentences_0))
     vectors_0 = []
     for i, sentence in enumerate (sentences_0_processed[0]) :
-        v = get_inference_vector (sentence)#model.infer_vector (sentence)
+        v = get_inference_vector (sentence)
         start = doc_0.find (sentences_0[i])
-        end = start + len(sentences_0[i]) - 1 # doc_0.rfind (sentences_0[i])
-        #for match in re.finditer (re.escape (sentences_1[i]), re.escape (doc_1)) :
+        end = start + len(sentences_0[i]) + 1
         vectors_0.append ([v, start, end])
-
-        # for match in re.finditer (re.escape (sentences_0[i]), re.escape (doc_0)) :
-        # vectors_0.append ([v, match.start (), match.end ()])
 
     sentences_1 = []
     sentences_1 = doc_1.split (".")
@@ -27,10 +23,9 @@ def get_sentence_similarity (doc_0, doc_1) :
     sentences_1_processed.append (pre_process (sentences_1))
     vectors_1 = []
     for i, sentence in enumerate (sentences_1_processed[0]) :
-        v = get_inference_vector (sentence)#model.infer_vector (sentence)
+        v = get_inference_vector (sentence)
         start = doc_1.find (sentences_1[i])
-        end = end = start + len(sentences_1[i]) - 1 # doc_1.rfind (sentences_1[i])
-        #for match in re.finditer (re.escape (sentences_1[i]), re.escape (doc_1)) :
+        end = end = start + len(sentences_1[i]) + 1
         vectors_1.append ([v, start, end])
 
     values = []

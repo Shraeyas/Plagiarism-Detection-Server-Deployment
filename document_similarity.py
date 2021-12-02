@@ -4,9 +4,6 @@ from inference import get_inference_vector
 import re
 
 def get_document_similarity (doc_0, doc_1) :
-    doc_0 = re.sub(r"[^a-zA-Z0-9]","", doc_0)
-    doc_1 = re.sub(r"[^a-zA-Z0-9]","", doc_1)
-
     sentences_0 = doc_0.split (".")
     document_0_processed = pre_process (sentences_0)
     flat_document_0 = [item for sublist in document_0_processed for item in sublist]
