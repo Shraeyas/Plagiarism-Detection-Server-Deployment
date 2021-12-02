@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from document_similarity import get_document_similarity
 from sentence_similarity import get_sentence_similarity
+import re
 
 app = Flask (__name__)
 
