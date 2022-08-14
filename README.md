@@ -66,7 +66,7 @@ python deploy.py
 }
 ```
 
-      ```  
+      
       {
           "doc_similarity": The cosine similarity between the two documents,
           "sen_similarity": [
@@ -94,4 +94,4 @@ python deploy.py
               ]
           ]
       }
-      ```
+      
