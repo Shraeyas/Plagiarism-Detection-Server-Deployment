@@ -39,25 +39,12 @@ python deploy.py
 
 ## API
 
-*  **Endpoint:**  
+*  **Curl:**  
     ```
-    https://plism.herokuapp.com/api/document_similarity
+        curl --location --request POST 'https://plism.herokuapp.com/api/document_similarity' \
+        --form 'doc_0="hi! how are you?"' \
+        --form 'doc_1="hello! how do you do?"'
     ```
-
-*  **Method :** `[POST]`  
-
-*  **Params:** `Query`
-
-* **Request:**
-
-   **POST**
-
-      ```
-      {  
-          "doc_0": "Text in 1st document",
-          "doc_1": "Text in 2nd document",
-      }  
-      ```
 
 *  **Response:**  
 
