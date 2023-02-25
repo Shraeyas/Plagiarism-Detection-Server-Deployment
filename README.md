@@ -1,6 +1,7 @@
 # Plagiarism-Detection-Server-Deployment
 
 ---
+![](https://github.com/Shraeyas/Plagiarism-Detection-Server-Deployment/raw/main/images/Preview.png)
 
 ### This is the Production code of the Plagiarism detector that is deployed on Render at :
 
@@ -41,63 +42,84 @@ python deploy.py
 
 *  **Curl:**  
     ```
-        curl --location 'http://127.0.0.1:5000/api/document_similarity' \
-        --form 'doc_0="Object oriented programming is a  style of programming that supports encapsulation, inheritance, and polymorphism. Inheritance means derived  a new class from the base class.  "' \
-        --form 'doc_1="The idea of inheritance in OOP refers to the formation of new classes with the already existing classes. The concept of inheritance was basically formulated for Simula in 1967.
-        "'
+        curl --location 'https://plagiarism.onrender.com/api/document_similarity' \
+        --form 'doc_0="This is a test document. This can highlight the text and can also show the percentage of similarity between the inputs. You can also hover over the text to view the similarity values."' \
+        --form 'doc_1="This document is for testing. You can check the highlighted text for plagiarism and also hover over it for more details. You can also hover over the text for more details."'
     ```
 
 *  **Response:**  
 ```
 {
-    "doc_similarity": 0.6415585875511169,
+    "doc_similarity": 0.6435717344284058,
     "sen_similarity": {
         "doc_0": [
             {
                 "doc_0": {
                     "index": 0,
-                    "sentence": "Object oriented programming is a  style of programming that supports encapsulation, inheritance, and polymorphism."
+                    "sentence": "This is a test document."
                 },
                 "doc_1": {
-                    "index": 1,
-                    "sentence": "The concept of inheritance was basically formulated for Simula in 1967."
+                    "index": 0,
+                    "sentence": "This document is for testing."
                 },
-                "similarity": 0.5923653244972229
+                "similarity": 0.9703976511955261
             },
             {
                 "doc_0": {
                     "index": 1,
-                    "sentence": "Inheritance means derived  a new class from the base class."
+                    "sentence": "This can highlight the text and can also show the percentage of similarity between the inputs."
                 },
                 "doc_1": {
-                    "index": 0,
-                    "sentence": "The idea of inheritance in OOP refers to the formation of new classes with the already existing classes."
+                    "index": 1,
+                    "sentence": "You can check the highlighted text for plagiarism and also hover over it for more details."
                 },
-                "similarity": 0.628696858882904
+                "similarity": 0.4555428624153137
+            },
+            {
+                "doc_0": {
+                    "index": 2,
+                    "sentence": "You can also hover over the text to view the similarity values."
+                },
+                "doc_1": {
+                    "index": 2,
+                    "sentence": "You can also hover over the text for more details."
+                },
+                "similarity": 0.7167359590530396
             }
         ],
         "doc_1": [
             {
                 "doc_0": {
-                    "index": 1,
-                    "sentence": "Inheritance means derived  a new class from the base class."
+                    "index": 0,
+                    "sentence": "This is a test document."
                 },
                 "doc_1": {
                     "index": 0,
-                    "sentence": "The idea of inheritance in OOP refers to the formation of new classes with the already existing classes."
+                    "sentence": "This document is for testing."
                 },
-                "similarity": 0.628696858882904
+                "similarity": 0.9703976511955261
             },
             {
                 "doc_0": {
-                    "index": 0,
-                    "sentence": "Object oriented programming is a  style of programming that supports encapsulation, inheritance, and polymorphism."
+                    "index": 1,
+                    "sentence": "This can highlight the text and can also show the percentage of similarity between the inputs."
                 },
                 "doc_1": {
                     "index": 1,
-                    "sentence": "The concept of inheritance was basically formulated for Simula in 1967."
+                    "sentence": "You can check the highlighted text for plagiarism and also hover over it for more details."
                 },
-                "similarity": 0.5923653244972229
+                "similarity": 0.4555428624153137
+            },
+            {
+                "doc_0": {
+                    "index": 2,
+                    "sentence": "You can also hover over the text to view the similarity values."
+                },
+                "doc_1": {
+                    "index": 2,
+                    "sentence": "You can also hover over the text for more details."
+                },
+                "similarity": 0.7167359590530396
             }
         ]
     }
