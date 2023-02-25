@@ -3,6 +3,7 @@ from preprocess import pre_process
 from inference import get_inference_vector
 import re
 import nltk.data
+nltk.download('punkt')
 tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 
 
