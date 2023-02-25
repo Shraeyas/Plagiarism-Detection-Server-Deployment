@@ -40,7 +40,7 @@ def split_into_sentences(text):
 
 def get_sentence_similarity (doc_0, doc_1) :
     sentences_0 = []
-    sentences_0 = split_into_sentences(doc_0)
+    sentences_0 = split_into_sentences(doc_0 + ".")
     sentences_0_processed = []
     sentences_0_processed.append (pre_process (sentences_0))
     vectors_0 = []
@@ -49,7 +49,7 @@ def get_sentence_similarity (doc_0, doc_1) :
         vectors_0.append (v)
 
     sentences_1 = []
-    sentences_1 = split_into_sentences(doc_1)
+    sentences_1 = split_into_sentences(doc_1 + ".")
     sentences_1_processed = []
     sentences_1_processed.append (pre_process (sentences_1))
     vectors_1 = []
