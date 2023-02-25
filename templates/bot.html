@@ -1,15 +1,334 @@
 <!doctype html>
 <html lang="en">
-<h1>
-Umm...this is awkward,<br>
-Unless you are looking for the API end point which is at <br>https://plism.herokuapp.com/api/document_similarity
+  <style>
+    	body
+      {
+        background: url(static/back.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+    .hovertext {
+      position: relative;
+    }
+    .hovertext:before {
+      content: attr(data-hover);
+      visibility: hidden;
+      opacity: 0;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 3px;
+      padding: 3px;
+      transition: opacity 0.3s ease-in-out;
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      top: 110%;
+    }
+    .hovertext:hover:before {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
 
-<script>
-function myFunction() {
-  window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-}
-myFunction();
-</script>
+  <head>
+    <style>
+      .highlight {
+        cursor: pointer;
+      }
+      .text-highlight-red-hover {
+        background:#ff726f;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+      }
+      .text-highlight-red {
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+        background:#ffe6e6;
+      }
+      .text-highlight-blue-hover {
+        background:#80f2ff;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+      }
+      .text-highlight-blue {
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+        background:#e6fdff;
+      }
+      .text-highlight-green-hover {
+        background:#ceff59;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+      }
+      .text-highlight-green {
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+        background:#eeffcc;
+      }
+      .text-container {
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+      }
+      .container {
+        background-color: #FFF;
+        border-radius: 5px;
+        padding: 2%;
+        margin: 5%;
+        opacity: 0.96;
+    }
+    </style>
 
-</h1>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Plagiarism Detection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h1 class="display-4"><b>Plagiarism Detection</b></h1>
+        <p class="lead">This is a website that detects plagiarism from text. This can highlight the text and can also show the percentage of similarity between the inputs.</p>
+        <hr class="my-4">
+        <p class="lead">
+          <a href = "https://github.com/Shraeyas/Plagiarism-Detection-Server-Deployment"><img id="github" src = "static/git.png" style = "width : 7%;"></a>
+        </p>
+      </div>
+      <div class="jumbotron">
+        <div class="row align-items-start">
+          <div class="col">
+            <div class="mb-3">
+              <label for="doc_0" class="form-label"><b>First Document</b></label>
+                <textarea class="form-control" id="doc_0" rows="5"></textarea>
+            </div>
+          </div>
+          
+          <div class="col">
+            <div class="mb-3">
+              <label for="doc_1" class="form-label"><b>Second Document</b></label>
+                <textarea class="form-control" id="doc_1" rows="5"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+          <img id="loader" src = "static/loader.gif" style = "width : 30px;height:30px">
+        </div>
+
+        <br>
+        <div class="row align-items-start">
+          <div class="col">
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label"><b>Document 1</b></label>
+              <p class="text-container border">
+                <div id="doc_0_text"></div>
+              </p>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label"><b>Document 2</b></label>
+              <p class="text-container border">
+                <div id="doc_1_text"></div>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	<script>
+    $("#loader").hide();
+    $("#submit").show();
+
+    $(document).on("mouseenter", ".highlight", function(e) {
+      var myClass = $(this).attr("class");
+      var classes = myClass.split(" ");
+      var commonClass;
+      var color;
+      classes.forEach(className => {
+        if(className.includes("ele-")) {
+          commonClass = className;
+        }
+        if(className.includes("color-")) {
+          color = className.split("-")[1];
+        }
+      });
+
+      Array.prototype.forEach.call(document.getElementsByClassName(commonClass), function(element) {
+        element.classList.add(`text-highlight-${color}-hover`);
+      });
+
+      Array.prototype.forEach.call(document.getElementsByClassName(commonClass), function(element) {
+        element.classList.remove(`text-highlight-${color}`);
+      });
+    });
+
+    $(document).on("mouseleave", ".highlight", function(e) {
+      var myClass = $(this).attr("class");
+      var classes = myClass.split(" ");
+      var commonClass;
+      var color;
+      classes.forEach(className => {
+        if(className.includes("ele-")) {
+          commonClass = className;
+        }
+        if(className.includes("color-")) {
+          color = className.split("-")[1];
+        }
+      });
+
+
+      Array.prototype.forEach.call(document.getElementsByClassName(commonClass), function(element) {
+        element.classList.remove(`text-highlight-${color}-hover`);
+      });
+
+      Array.prototype.forEach.call(document.getElementsByClassName(commonClass), function(element) {
+        element.classList.add(`text-highlight-${color}`);
+      });
+    });
+
+		$("#submit").click(function() {
+      $("#loader").show();
+      $("#submit").hide();
+      
+      function getColorFromSimilarity(similarity) {
+        if(similarity >= 0.75) {
+          return "red";
+        }
+        else if(similarity >= 0.5 && similarity < 0.75) {
+          return "blue";
+        }
+        else if(similarity >= 0.25 && similarity < 0.5) {
+          return "green";
+        }
+        else {
+          return "white";
+        }
+      }
+
+			doc_0 = $("#doc_0").val();
+			doc_1 = $("#doc_1").val();
+      var data = {};
+			data["doc_0"] = doc_0;
+			data["doc_1"] = doc_1;
+
+      var doc_0_text = "";
+      var doc_1_text = "";
+
+      var doc_0_class = {};
+      var doc_1_class = {};
+
+      var doc_1_mapping = {};
+
+      var doc_0_sentences = [];
+      var doc_1_sentences = [];
+
+			$.ajax({
+        type: 'POST',
+        url: '/api/document_similarity',
+        dataType: 'json',
+        data: data,
+        success: function(callback) {
+          $("#loader").hide();
+          $("#submit").show();
+          callback.sen_similarity.doc_0.forEach(statement => {
+
+            var similarity = statement.similarity;
+            var color = getColorFromSimilarity(similarity);
+            var key_0 = String(statement.doc_0.index);
+            var key_1 = String(statement.doc_1.index);
+            var sentence_0 = String(statement.doc_0.sentence);
+            var sentence_1 = String(statement.doc_1.sentence);
+  
+            var className = statement.doc_0.index + ":" + statement.doc_1.index
+
+            if(doc_1_mapping[key_1]) {
+              doc_1_mapping[key_1].push([key_0]);
+            }
+            else {
+              doc_1_mapping[key_1] = [key_0];
+            }
+            doc_0_sentences.push({ "sentence": sentence_0, "color": color, "similarity": similarity });
+          });
+
+          callback.sen_similarity.doc_1.forEach(statement => {
+            var similarity = statement.similarity;
+            var color = getColorFromSimilarity(similarity);
+            var key_0 = String(statement.doc_0.index);
+            var key_1 = String(statement.doc_1.index);
+            var sentence_0 = String(statement.doc_0.sentence);
+            var sentence_1 = String(statement.doc_1.sentence);
+
+            if(statement.doc_0.index == -1) {
+              doc_1_sentences.push({ "sentence": sentence_1, "color": color, "similarity": similarity });
+            }
+            else {
+              if(doc_1_mapping[key_1]) {
+                doc_1_mapping[key_1].push(key_0);
+              }
+              else {
+                doc_1_mapping[key_1] = [key_0];
+              }
+              doc_1_sentences.push({ "sentence": sentence_1, "color": color, "similarity": similarity });
+            }
+          });
+
+          for(var i = 0; i < doc_1_sentences.length; i++) {
+            var className = "";
+            if(doc_1_mapping[i]) {
+              doc_1_mapping[i].sort(function(a, b) {
+                return a - b;
+              });
+              className = doc_1_mapping[i].join(":");
+              className += ":" + i;
+
+              doc_1_mapping[i].forEach(idx => {
+                doc_0_class[idx] = className;
+              })
+              doc_1_class[i] = className;
+            }
+          }
+
+          for (var i = 0; i < doc_0_sentences.length; i++) {
+            if(doc_0_class[i]) {
+              var similarityScore = Math.round((doc_0_sentences[i].similarity + Number.EPSILON) * 100) / 100
+              doc_0_text += `<span class="hovertext highlight text-highlight-${doc_0_sentences[i].color} color-${doc_0_sentences[i].color} ele-${doc_0_class[i]}" data-hover="Similarity: ${similarityScore}">` + doc_0_sentences[i].sentence + ` </span>`;
+              continue;
+            }
+            doc_0_text += `<span>` + doc_0_sentences[i].sentence + " </span>";
+          }
+
+          for (var i = 0; i < doc_1_sentences.length; i++) {
+            if(doc_1_class[i]) {
+              var similarityScore = Math.round((doc_1_sentences[i].similarity + Number.EPSILON) * 100) / 100
+              doc_1_text += `<span class="hovertext highlight text-highlight-${doc_1_sentences[i].color} color-${doc_1_sentences[i].color} ele-${doc_1_class[i]}" data-hover="Similarity: ${similarityScore}">` + doc_1_sentences[i].sentence + " </span>";
+              continue;
+            }
+            doc_1_text += `<span>` + doc_1_sentences[i].sentence + " </span>";
+          }
+          
+          $("#doc_0_text").html(doc_0_text);
+          $("#doc_1_text").html(doc_1_text);
+        },
+        error: function (jqXHR, exception) {
+          $("#result").hide();
+          var msg = '';
+          msg = jqXHR.responseText;
+          console.log(msg);
+          $("#loader").hide();
+        },
+      });
+		});
+	</script>
+
+  </body>
 </html>
