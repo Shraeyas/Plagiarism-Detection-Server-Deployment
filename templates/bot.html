@@ -120,7 +120,8 @@
         </div>
 
         <br>
-        <div class="row align-items-start">
+
+        <div id="results" class="row align-items-start">
           <div class="col">
             <div class="mb-3">
               <label for="exampleFormControlTextarea1" class="form-label"><b>Document 1</b></label>
@@ -147,6 +148,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	<script>
     $("#loader").hide();
+    $("#results").hide();
     $("#submit").show();
 
     $(document).on("mouseenter", ".highlight", function(e) {
@@ -238,6 +240,7 @@
         dataType: 'json',
         data: data,
         success: function(callback) {
+          $("#results").show();
           $("#loader").hide();
           $("#submit").show();
           callback.sen_similarity.doc_0.forEach(statement => {
