@@ -36,4 +36,4 @@ def get_similarity_v2 ():
     return jsonify (dict)
 
 if __name__ == '__main__':
-    app.run (debug=True)
+    app.run ()
