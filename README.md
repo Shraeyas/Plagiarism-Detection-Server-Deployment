@@ -6,7 +6,7 @@
 ### This is the Production code of the Plagiarism detector that is deployed on Render at :
 
 ```
-https://plagiarism.onrender.com/api/document_similarity
+https://plagiarism.onrender.com/
 ```
 
 ### The Original Plagiarism Detection Notebook is present at :
