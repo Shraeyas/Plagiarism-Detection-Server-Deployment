@@ -112,9 +112,18 @@
         <br>
 
         <div class="text-center">
+          <button id="populate-test-data" type="submit" class="btn btn-success  btn-sm">Populate Test Data</button>
+          <img id="loader" src = "static/loader.gif" style = "width : 30px;height:30px">
+        </div>
+
+        <br>
+
+        <div class="text-center">
           <button id="submit" type="submit" class="btn btn-primary">Submit</button>
           <img id="loader" src = "static/loader.gif" style = "width : 30px;height:30px">
         </div>
+
+
 
         <br>
 
@@ -147,6 +156,7 @@
     $("#loader").hide();
     $("#results").hide();
     $("#submit").show();
+    $("#populate-test-data").show();
 
     $(document).on("mouseenter", ".highlight", function(e) {
       var myClass = $(this).attr("class");
@@ -195,9 +205,15 @@
       });
     });
 
+    $("#populate-test-data").click(function() {
+      doc_0 = $("#doc_0").html("This is a test document. This can highlight the text and can also show the percentage of similarity between the inputs. You can also hover over the text to view the similarity values.");
+			doc_1 = $("#doc_1").html("This document is for testing. You can check the highlighted text for plagiarism and also hover over it for more details. You can also hover over the text for more details.");
+    });
+
 		$("#submit").click(function() {
       $("#loader").show();
       $("#submit").hide();
+      $("#populate-test-data").hide();
       
       function getColorFromSimilarity(similarity) {
         if(similarity >= 0.75) {
@@ -240,6 +256,7 @@
           $("#results").show();
           $("#loader").hide();
           $("#submit").show();
+          $("#populate-test-data").show();
           callback.sen_similarity.doc_0.forEach(statement => {
 
             var similarity = statement.similarity;
@@ -326,6 +343,7 @@
           console.log(msg);
           $("#loader").hide();
           $("#submit").show();
+          $("#populate-test-data").show();
         },
       });
 		});
